@@ -1,11 +1,13 @@
+//Este componente es la página principal donde se muestra todos los articulos disponibles en el Ecommerce
+//Components
+import { Layout } from "../Components/Layout"
+
 function Home() {
 
     return (
-      <>
-        <div className='bg-red-400'>
-          Home
-        </div>
-      </>
+      <Layout>
+        Home
+      </Layout>
     )
   }
   

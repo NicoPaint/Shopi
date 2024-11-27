@@ -1,11 +1,13 @@
+//Este componente es la página para mostrar la información de la cuenta de los usuarios
+//Components
+import { Layout } from "../Components/Layout"
+
 function MyAccount() {
 
     return (
-      <>
-        <div className='bg-red-400'>
-          MyAccount
-        </div>
-      </>
+      <Layout>
+        MyAccount
+      </Layout>
     )
   }
   

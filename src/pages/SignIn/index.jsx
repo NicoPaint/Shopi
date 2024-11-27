@@ -1,11 +1,13 @@
+//Este componente es la página para iniciar sesión en el Ecommerce
+//Components
+import { Layout } from "../Components/Layout"
+
 function SingIn() {
 
     return (
-      <>
-        <div className='bg-red-400'>
-          SingIn
-        </div>
-      </>
+      <Layout>
+        SingIn
+      </Layout>
     )
   }
   

@@ -1,11 +1,13 @@
+//Este componente es la página para mostrar todas las ordenes que un cliente ha realizado en el sitio
+//Components
+import { Layout } from "../Components/Layout"
+
 function MyOrders() {
 
     return (
-      <>
-        <div className='bg-red-400'>
-          MyOrders
-        </div>
-      </>
+      <Layout>
+        MyOrders
+      </Layout>
     )
   }
   
