@@ -7,6 +7,8 @@ import { MyOrder } from '../MyOrder'
 import { MyOrders } from '../MyOrders'
 import { SingIn } from '../SignIn'
 import { NotFound } from '../NotFound'
+//Components
+import { NavBar } from '../Components/Navbar'
 //Styles
 import './App.css'
 
@@ -29,6 +31,7 @@ function App() {
   return (
     //BrowserRouter determina que elemento mostrar según la ruta en la URL
     <BrowserRouter>
+      <NavBar />
       <AppRoutes />
     </BrowserRouter>
   )
