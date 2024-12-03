@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 //Components
 import { Layout } from "../../Components/Layout"
 import { Card } from "../../Components/Card"
+import { ProductDetail } from "../../Components/ProductDetail"
 
 function Home() {
   const [products, setProducts] = useState(null)  //Este estado va a almacenar los productos que se traen de la API.
@@ -32,6 +33,7 @@ function Home() {
           <Card key={product.id} data={product}/>
         ))}
       </div>
+      <ProductDetail />
     </Layout>
   )
 }
