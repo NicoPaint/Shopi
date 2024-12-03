@@ -1,5 +1,7 @@
 //React
 import { useRoutes, BrowserRouter } from 'react-router-dom'
+//Context
+import { ShopiProvider } from '../../Context'
 //Pages
 import { Home } from '../Home/Index'
 import { MyAccount } from '../MyAccount'
@@ -8,7 +10,7 @@ import { MyOrders } from '../MyOrders'
 import { SingIn } from '../SignIn'
 import { NotFound } from '../NotFound'
 //Components
-import { NavBar } from '../Components/Navbar'
+import { NavBar } from '../../Components/Navbar'
 //Styles
 import './App.css'
 
@@ -29,11 +31,13 @@ const AppRoutes = () => {
 function App() {
 
   return (
-    //BrowserRouter determina que elemento mostrar según la ruta en la URL
-    <BrowserRouter>
-      <NavBar />
-      <AppRoutes />
-    </BrowserRouter>
+    <ShopiProvider>
+      {/*BrowserRouter determina que elemento mostrar según la ruta en la URL*/}
+      <BrowserRouter>
+        <NavBar />
+        <AppRoutes />
+      </BrowserRouter>
+    </ShopiProvider>
   )
 }
 
