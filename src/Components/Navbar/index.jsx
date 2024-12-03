@@ -1,9 +1,14 @@
 //Este componente es el NavBar dew la aplicación y va a manejar el cambio de las páginas
 //React
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+//Context
+import { ShopiContext } from "../../Context";
 
 const NavBar = () => {
     const activeStyle = 'underline underline-offset-4';
+
+    const { count } = useContext(ShopiContext);
 
     return(
         <nav  className="flex justify-between items-center  w-full py-5 px-8 text-sm font-light">
@@ -91,7 +96,7 @@ const NavBar = () => {
                     </NavLink>
                 </li>
                 <li>
-                    🛒 0
+                    🛒 {count}
                 </li>
             </ul>
         </nav>
