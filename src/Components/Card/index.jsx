@@ -1,6 +1,8 @@
 //Este componente es la card donde se va a mostrar la información de los productos
 //React
 import { useContext } from "react";
+//Third-party Components
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 //Context
 import { ShopiContext } from "../../Context";
 
@@ -18,10 +20,10 @@ const Card = ({ data }) => {
                 <span className="absolute bottom-0 left-0 m-2 px-3 py-0.5 text-xs text-black bg-white/60 rounded-lg">{data.category}</span>
                 <img className="w-full h-full object-contain rounded-lg" src={data.image} alt={data.title} />
                 <div 
-                    className="flex justify-center items-center absolute top-0 right-0 w-6 h-6 m-2 p-1 bg-white rounded-full"
+                    className="flex justify-center items-center absolute top-0 right-0 size-8 m-2 p-1 bg-white rounded-full"
                     onClick={() => setCount(count + 1)}
                 >
-                    +
+                    <PlusCircleIcon/>
                 </div>
             </figure>
             <p className="flex justify-between items-center mx-2">
