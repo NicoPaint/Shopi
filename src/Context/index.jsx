@@ -6,12 +6,21 @@ const ShopiContext = createContext();
 
 const ShopiProvider = ({ children }) => {
 
-    const [count, setCount] = useState(0);
+    //Shopping Bag
+    const [count, setCount] = useState(0);  //Lleva la cuenta de los elementos en la shopping bag
+
+    //Product Detail - Open/Close
+    const [isProductoDetailOpen, setIsProductoDetailOpen] = useState(false); //Determina si se muestra el product detail section o no.
+    const openProductDetail = () => setIsProductoDetailOpen(true);  //Muestra el product detail
+    const closeProductDetail = () => setIsProductoDetailOpen(false);  //Esconde el product detail
 
     return(
         <ShopiContext.Provider value={{
             count,
-            setCount
+            setCount,
+            isProductoDetailOpen,
+            openProductDetail,
+            closeProductDetail,
         }}>
             {children}
         </ShopiContext.Provider>

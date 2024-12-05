@@ -11,17 +11,24 @@ const Card = ({ data }) => {
 
     const {
         count,
-        setCount
+        setCount,
+        openProductDetail
     } = useContext(ShopiContext);
 
     return(
-        <div className="w-56 h-60 bg-white cursor-pointer rounded-lg">
+        <div 
+            className="w-56 h-60 bg-white cursor-pointer rounded-lg"
+            onClick={() => openProductDetail()}
+        >
             <figure className="relative w-full h-4/5 mb-2">
                 <span className="absolute bottom-0 left-0 m-2 px-3 py-0.5 text-xs text-black bg-white/60 rounded-lg">{data.category}</span>
                 <img className="w-full h-full object-contain rounded-lg" src={data.image} alt={data.title} />
                 <div 
                     className="flex justify-center items-center absolute top-0 right-0 size-8 m-2 p-1 bg-white rounded-full"
-                    onClick={() => setCount(count + 1)}
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        setCount(count + 1);
+                    }}
                 >
                     <PlusCircleIcon/>
                 </div>
