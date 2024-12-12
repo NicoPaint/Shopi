@@ -10,8 +10,9 @@ const ProductDetail = () => {
 
     const {
         isProductoDetailOpen,
-        closeProductDetail
-    } = useContext(ShopiContext)
+        closeProductDetail,
+        productToShow
+    } = useContext(ShopiContext);
 
     return(
         <aside className={`${isProductoDetailOpen ? "flex" : "hidden"} flex-col fixed right-0 w-[360px] h-[calc(100vh-68px)] border border-r-0 border-black rounded-l-lg bg-white`}>
@@ -19,11 +20,19 @@ const ProductDetail = () => {
                 <h2 className="font-medium text-xl">Detail</h2>
                 <div>
                     <XMarkIcon 
-                        className="size-6 text-black"
+                        className="size-6 text-black cursor-pointer"
                         onClick={() => closeProductDetail()}
                     />
                 </div>
             </div>
+            <figure className="flex justify-center items-center h-60 px-6">
+                <img className="w-full h-full object-contain rounded-lg" src={productToShow.image} alt={productToShow.title} />
+            </figure>
+            <p className="flex flex-col p-6 gap-2">
+                <span className="font-semibold mb-3 text-2xl">${productToShow.price}</span>
+                <span className="font-medium text-md">{productToShow.title}</span>
+                <span className="h-60 font-light text-sm overflow-scroll">{productToShow.description}</span>
+            </p>
         </aside>
     )
 }

@@ -12,13 +12,20 @@ const Card = ({ data }) => {
     const {
         count,
         setCount,
-        openProductDetail
+        openProductDetail,
+        setProductToShow,
     } = useContext(ShopiContext);
+
+    //esta funcion abre el product detail section y guarda la información del producto cada vez que dan click a una card.
+    const showProduct = (ProductDetail) => {
+        openProductDetail();
+        setProductToShow(ProductDetail);
+    }
 
     return(
         <div 
             className="w-56 h-60 bg-white cursor-pointer rounded-lg"
-            onClick={() => openProductDetail()}
+            onClick={() => showProduct(data)}
         >
             <figure className="relative w-full h-4/5 mb-2">
                 <span className="absolute bottom-0 left-0 m-2 px-3 py-0.5 text-xs text-black bg-white/60 rounded-lg">{data.category}</span>

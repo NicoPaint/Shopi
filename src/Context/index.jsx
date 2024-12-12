@@ -14,6 +14,9 @@ const ShopiProvider = ({ children }) => {
     const openProductDetail = () => setIsProductoDetailOpen(true);  //Muestra el product detail
     const closeProductDetail = () => setIsProductoDetailOpen(false);  //Esconde el product detail
 
+    //Product Detail - Show Product
+    const [productToShow, setProductToShow] = useState({});
+
     return(
         <ShopiContext.Provider value={{
             count,
@@ -21,6 +24,8 @@ const ShopiProvider = ({ children }) => {
             isProductoDetailOpen,
             openProductDetail,
             closeProductDetail,
+            productToShow,
+            setProductToShow,
         }}>
             {children}
         </ShopiContext.Provider>
