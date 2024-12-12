@@ -8,6 +8,7 @@ const ShopiProvider = ({ children }) => {
 
     //Shopping Bag
     const [count, setCount] = useState(0);  //Lleva la cuenta de los elementos en la shopping bag
+    const [cartProducts, setCartProducts] = useState([]); //Almacena los productos que se agregan al shopping bag.
 
     //Product Detail - Open/Close
     const [isProductoDetailOpen, setIsProductoDetailOpen] = useState(false); //Determina si se muestra el product detail section o no.
@@ -26,6 +27,8 @@ const ShopiProvider = ({ children }) => {
             closeProductDetail,
             productToShow,
             setProductToShow,
+            cartProducts,
+            setCartProducts
         }}>
             {children}
         </ShopiContext.Provider>

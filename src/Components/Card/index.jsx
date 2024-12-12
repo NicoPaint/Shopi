@@ -14,12 +14,20 @@ const Card = ({ data }) => {
         setCount,
         openProductDetail,
         setProductToShow,
+        cartProducts,
+        setCartProducts,
     } = useContext(ShopiContext);
 
     //esta funcion abre el product detail section y guarda la información del producto cada vez que dan click a una card.
     const showProduct = (ProductDetail) => {
         openProductDetail();
         setProductToShow(ProductDetail);
+    }
+
+    const addProductsToBag = (productData) => {
+        setCount(count + 1);
+        setCartProducts([...cartProducts, productData]);
+        console.log('Cart: ', cartProducts);
     }
 
     return(
@@ -34,10 +42,10 @@ const Card = ({ data }) => {
                     className="flex justify-center items-center absolute top-0 right-0 size-8 m-2 p-1 bg-white rounded-full"
                     onClick={(event) => {
                         event.stopPropagation();
-                        setCount(count + 1);
+                        addProductsToBag(data);
                     }}
                 >
-                    <PlusCircleIcon/>
+                    <PlusCircleIcon />
                 </div>
             </figure>
             <p className="flex justify-between items-center mx-2">
