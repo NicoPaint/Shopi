@@ -9,13 +9,13 @@ import { ShopiContext } from "../../Context";
 const ProductDetail = () => {
 
     const {
-        isProductoDetailOpen,
+        isProductDetailOpen,
         closeProductDetail,
         productToShow
     } = useContext(ShopiContext);
 
     return(
-        <aside className={`${isProductoDetailOpen ? "flex" : "hidden"} flex-col fixed right-0 w-[360px] h-[calc(100vh-68px)] border border-r-0 border-black rounded-l-lg bg-white`}>
+        <aside className={`${isProductDetailOpen ? "flex" : "hidden"} flex-col fixed right-0 w-[360px] h-[calc(100vh-68px)] border border-r-0 border-black rounded-l-lg bg-white`}>
             <div className="flex justify-between items-center p-6">
                 <h2 className="font-medium text-xl">Detail</h2>
                 <div>

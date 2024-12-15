@@ -11,6 +11,7 @@ import { SingIn } from '../SignIn'
 import { NotFound } from '../NotFound'
 //Components
 import { NavBar } from '../../Components/Navbar'
+import { CheckoutSideMenu } from '../../Components/CheckoutSideMenu'
 //Styles
 import './App.css'
 
@@ -36,6 +37,7 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <AppRoutes />
+        <CheckoutSideMenu />
       </BrowserRouter>
     </ShopiProvider>
   )
