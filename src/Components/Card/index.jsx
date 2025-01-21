@@ -28,6 +28,7 @@ const Card = ({ data }) => {
         setProductToShow(ProductDetail);
     }
 
+    //esta función abre el checkout side menu, suma uno al contador del shopping bag y guarda la informacion del producto que usuario va a comprar cada vez que el dan click al icono de mas + en la card
     const addProductsToBag = (event, productData) => {
         event.stopPropagation();
         setCount(count + 1);
