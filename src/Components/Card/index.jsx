@@ -2,7 +2,7 @@
 //React
 import { useContext } from "react";
 //Third-party Components
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon, CheckIcon } from "@heroicons/react/24/outline";
 //Context
 import { ShopiContext } from "../../Context";
 
@@ -38,6 +38,33 @@ const Card = ({ data }) => {
         console.log('Cart: ', cartProducts);
     }
 
+    //esta funcion cambia el icono de la esquina superior derecha de la card dependiendo si el producto fue agregado a la bolsa o no
+    const renderIcon = (id) => {
+
+        const isInTheBag = cartProducts.some(product => product.id === id);  //se hace la validación si el producto ya esta en la bolsa o no
+
+        //si no, se muestra el icono de + para agregar que tiene la funcion aplicada. Si está, se cambia al icono de check para mostrar que ya fue agregado.
+        if(isInTheBag){
+            return(
+                <div 
+                    className="flex justify-center items-center absolute top-0 right-0 size-8 m-2 p-1 bg-black text-white rounded-full"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    <CheckIcon />
+                </div>
+            )
+        } else {
+            return(
+                <div 
+                    className="flex justify-center items-center absolute top-0 right-0 size-8 m-2 p-1 bg-white rounded-full"
+                    onClick={(event) => addProductsToBag(event, data)}
+                >
+                    <PlusCircleIcon />
+                </div>
+            )
+        }
+    }
+
     return(
         <div 
             className="w-56 h-60 bg-white cursor-pointer rounded-lg"
@@ -46,12 +73,7 @@ const Card = ({ data }) => {
             <figure className="relative w-full h-4/5 mb-2">
                 <span className="absolute bottom-0 left-0 m-2 px-3 py-0.5 text-xs text-black bg-white/60 rounded-lg">{data.category}</span>
                 <img className="w-full h-full object-contain rounded-lg" src={data.image} alt={data.title} />
-                <div 
-                    className="flex justify-center items-center absolute top-0 right-0 size-8 m-2 p-1 bg-white rounded-full"
-                    onClick={(event) => addProductsToBag(event, data)}
-                >
-                    <PlusCircleIcon />
-                </div>
+                {renderIcon(data.id)}
             </figure>
             <p className="flex justify-between items-center mx-2">
                 <span className="w-3/4 text-sm font-light truncate">{data.title}</span>
