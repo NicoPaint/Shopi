@@ -28,6 +28,11 @@ const CheckoutSideMenu = () => {
         setCartProducts(filteredBagProducts);
     }
 
+    const emptyTheBag = () => {
+        setCount(0);
+        setCartProducts([]);
+    }
+
     return(
         <aside className={`${isCheckoutSideMenuOpen ? "flex" : "hidden"} flex-col fixed top-[68px] right-0 w-[360px] h-[calc(100vh-68px)] border border-r-0 border-black rounded-l-lg bg-white`}>
             <div className="flex justify-between items-center p-6">
@@ -52,8 +57,14 @@ const CheckoutSideMenu = () => {
                     />
                 ))}
             </div>
-            <div className="px-6 pt-3">
-                <p className="flex justify-end items-center gap-2">
+            <div className="flex justify-between items-center px-6 pt-2">
+                <button 
+                    className="px-2 py-1 text-red-600 rounded-lg border-[1px] border-red-400 transition hover:bg-red-600 hover:text-white hover:border-transparent "
+                    onClick={() => emptyTheBag()}
+                >
+                    Empty the bag
+                </button>
+                <p className="flex items-center gap-1">
                     <span className="font-light">Total:</span>
                     <span className="font-medium text-xl">${totalPrice(cartProducts)}</span>
                 </p>
