@@ -2,7 +2,7 @@
 //Third-party components
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-const OrderCard = ({ title, imageURL, price }) => {
+const OrderCard = ({ id, title, imageURL, price, handelDelete }) => {
     return(
         <div className="flex justify-between items-center mb-3">
             <div className="flex items-center w-4/6 gap-2">
@@ -15,7 +15,7 @@ const OrderCard = ({ title, imageURL, price }) => {
                 <p className="text-lg font-semibold">${price}</p>
                 <XMarkIcon 
                         className="size-6 text-black cursor-pointer"
-                        onClick={() => {}}
+                        onClick={() => handelDelete(id)}
                 />
             </div>
         </div>

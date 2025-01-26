@@ -13,8 +13,18 @@ const CheckoutSideMenu = () => {
     const {
         isCheckoutSideMenuOpen,
         closeCheckoutSideMenu,
-        cartProducts
+        count,
+        setCount,
+        cartProducts,
+        setCartProducts
     } = useContext(ShopiContext);
+
+    const handelDelete = (id) => {
+        setCount(count - 1);
+
+        const filteredBagProducts = cartProducts.filter(product => product.id != id);
+        setCartProducts(filteredBagProducts);
+    }
 
     return(
         <aside className={`${isCheckoutSideMenuOpen ? "flex" : "hidden"} flex-col fixed top-[68px] right-0 w-[360px] h-[calc(100vh-68px)] border border-r-0 border-black rounded-l-lg bg-white`}>
@@ -31,10 +41,12 @@ const CheckoutSideMenu = () => {
                 {/* Aca se inserta el order card al check side menu cada vez que el usuario agrega un producto al bag con el boton de mas */}
                 {cartProducts?.map(product => (
                     <OrderCard
-                        key={product.id} 
+                        key={product.id}
+                        id={product.id} 
                         title={product.title}
                         imageURL={product.image}
                         price={product.price}
+                        handelDelete={handelDelete}
                     />
                 ))}
             </div>
