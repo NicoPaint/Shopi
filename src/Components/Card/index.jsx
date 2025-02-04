@@ -28,11 +28,11 @@ const Card = ({ data }) => {
         setProductToShow(ProductDetail);
     }
 
-    //esta función abre el checkout side menu, suma uno al contador del shopping bag y guarda la informacion del producto que usuario va a comprar cada vez que el dan click al icono de mas + en la card
+    //esta función abre el checkout side menu, suma uno al contador del shopping bag y guarda la informacion del producto que usuario va a comprar cada vez que el dan click al icono de mas + en la card. Se agregab el finalPrice para poder calcular el precio total de la orden.
     const addProductsToBag = (event, productData) => {
         event.stopPropagation();
         setCount(count + 1);
-        setCartProducts([...cartProducts, productData]);
+        setCartProducts([...cartProducts, { productData, finalPrice: productData.price }]);
         openCheckoutSideMenu();
         closeProductDetail();
         console.log('Cart: ', cartProducts);
@@ -41,7 +41,7 @@ const Card = ({ data }) => {
     //esta funcion cambia el icono de la esquina superior derecha de la card dependiendo si el producto fue agregado a la bolsa o no
     const renderIcon = (id) => {
 
-        const isInTheBag = cartProducts.some(product => product.id === id);  //se hace la validación si el producto ya esta en la bolsa o no
+        const isInTheBag = cartProducts.some(product => product.productData.id === id);  //se hace la validación si el producto ya esta en la bolsa o no
 
         //si no, se muestra el icono de + para agregar que tiene la funcion aplicada. Si está, se cambia al icono de check para mostrar que ya fue agregado.
         if(isInTheBag){

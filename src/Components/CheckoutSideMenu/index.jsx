@@ -24,7 +24,7 @@ const CheckoutSideMenu = () => {
     const handelDelete = (id) => {
         setCount(count - 1);
 
-        const filteredBagProducts = cartProducts.filter(product => product.id != id);
+        const filteredBagProducts = cartProducts.filter(product => product.productData.id != id);
         setCartProducts(filteredBagProducts);
     }
 
@@ -48,11 +48,8 @@ const CheckoutSideMenu = () => {
                 {/* Aca se inserta el order card al check side menu cada vez que el usuario agrega un producto al bag con el boton de mas */}
                 {cartProducts?.map(product => (
                     <OrderCard
-                        key={product.id}
-                        id={product.id} 
-                        title={product.title}
-                        imageURL={product.image}
-                        price={product.price}
+                        key={product.productData.id}
+                        productData={product.productData} 
                         handelDelete={handelDelete}
                     />
                 ))}
