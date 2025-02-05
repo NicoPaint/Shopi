@@ -18,7 +18,9 @@ const CheckoutSideMenu = () => {
         count,
         setCount,
         cartProducts,
-        setCartProducts
+        setCartProducts,
+        order,
+        setOrder
     } = useContext(ShopiContext);
 
     const handelDelete = (id) => {
@@ -26,6 +28,19 @@ const CheckoutSideMenu = () => {
 
         const filteredBagProducts = cartProducts.filter(product => product.productData.id != id);
         setCartProducts(filteredBagProducts);
+    }
+
+    const handelCheckout = () => {
+        const orderToAdd = {
+            date: "02.04.2025",
+            products: cartProducts,
+            totalProducts: cartProducts.length,
+            totalPrice: totalPrice(cartProducts),
+        }
+
+        setOrder([...order, orderToAdd]);
+        console.log(order);
+        emptyTheBag();
     }
 
     const emptyTheBag = () => {
@@ -44,7 +59,7 @@ const CheckoutSideMenu = () => {
                     />
                 </div>
             </div>
-            <div className="px-6 h-5/6 overflow-scroll">
+            <div className="px-6 flex-1 overflow-scroll">
                 {/* Aca se inserta el order card al check side menu cada vez que el usuario agrega un producto al bag con el boton de mas */}
                 {cartProducts?.map(product => (
                     <OrderCard
@@ -54,17 +69,25 @@ const CheckoutSideMenu = () => {
                     />
                 ))}
             </div>
-            <div className="flex justify-between items-center px-6 pt-2">
+            <div className="flex flex-col justify-between items-center px-6 py-3 gap-2">
+                <div className="flex justify-between items-center w-full">
+                    <button 
+                        className="px-2 py-1 text-red-600 rounded-lg border-[1px] border-red-400 transition hover:bg-red-600 hover:text-white hover:border-transparent "
+                        onClick={() => emptyTheBag()}
+                    >
+                        Empty the bag
+                    </button>
+                    <p className="flex items-center gap-1">
+                        <span className="font-light">Total:</span>
+                        <span className="font-medium text-xl">${totalPrice(cartProducts)}</span>
+                    </p>
+                </div>
                 <button 
-                    className="px-2 py-1 text-red-600 rounded-lg border-[1px] border-red-400 transition hover:bg-red-600 hover:text-white hover:border-transparent "
-                    onClick={() => emptyTheBag()}
+                    className="w-full py-3 bg-black text-white rounded-lg transition hover:bg-green-500"
+                    onClick={handelCheckout}
                 >
-                    Empty the bag
+                    Checkout
                 </button>
-                <p className="flex items-center gap-1">
-                    <span className="font-light">Total:</span>
-                    <span className="font-medium text-xl">${totalPrice(cartProducts)}</span>
-                </p>
             </div>
         </aside>
     )

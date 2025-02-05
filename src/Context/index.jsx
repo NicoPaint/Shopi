@@ -9,6 +9,7 @@ const ShopiProvider = ({ children }) => {
     //Shopping Bag
     const [count, setCount] = useState(0);  //Lleva la cuenta de los elementos en la shopping bag
     const [cartProducts, setCartProducts] = useState([]); //Almacena los productos que se agregan al shopping bag.
+    const [order, setOrder] = useState([]); //Almacena la cantidad de ordenes que se ha hecho en al app.
 
     //Product Detail - Open/Close
     const [isProductDetailOpen, setIsProductDetailOpen] = useState(false); //Determina si se muestra el product detail section o no.
@@ -37,6 +38,8 @@ const ShopiProvider = ({ children }) => {
             isCheckoutSideMenuOpen,
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
+            order,
+            setOrder
         }}>
             {children}
         </ShopiContext.Provider>
