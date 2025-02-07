@@ -35,7 +35,6 @@ const Card = ({ data }) => {
         setCartProducts([...cartProducts, { productData, finalPrice: productData.price }]);
         openCheckoutSideMenu();
         closeProductDetail();
-        console.log('Cart: ', cartProducts);
     }
 
     //esta funcion cambia el icono de la esquina superior derecha de la card dependiendo si el producto fue agregado a la bolsa o no

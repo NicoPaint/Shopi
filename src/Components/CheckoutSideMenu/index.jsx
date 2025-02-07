@@ -1,6 +1,7 @@
 //Este componente es la ventana que se abre cada vez que alguien da clic al shopping bag. La ventana de los productos listos para comprar.
 //React
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 //Components
 import { OrderCard } from "../OrderCard";
 //Third-party components
@@ -35,12 +36,11 @@ const CheckoutSideMenu = () => {
             date: "02.04.2025",
             products: cartProducts,
             totalProducts: cartProducts.length,
-            totalPrice: totalPrice(cartProducts),
+            totalPrice: +totalPrice(cartProducts), //se agregó el signo + a finalPrice para convertirlo de string a número porque en la copia ese dato se convirtió en string.
         }
 
         setOrder([...order, orderToAdd]);
-        console.log(order);
-        emptyTheBag();
+        setTimeout(emptyTheBag, 30);  //por alguna razón cuando le aplico el Link al boton y se oprime, este borra el cartProduct pero vuelve y agrega el ultimo producto que estaba en el array y no lo borra del checkoutSideMenu. Solo aplicandole este timeout puedo evitar que eso suceda.
     }
 
     const emptyTheBag = () => {
@@ -64,7 +64,8 @@ const CheckoutSideMenu = () => {
                 {cartProducts?.map(product => (
                     <OrderCard
                         key={product.productData.id}
-                        productData={product.productData} 
+                        productData={product.productData}
+                        finalPrice={product.finalPrice} 
                         handelDelete={handelDelete}
                     />
                 ))}
@@ -82,12 +83,17 @@ const CheckoutSideMenu = () => {
                         <span className="font-medium text-xl">${totalPrice(cartProducts)}</span>
                     </p>
                 </div>
-                <button 
-                    className="w-full py-3 bg-black text-white rounded-lg transition hover:bg-green-500"
-                    onClick={handelCheckout}
-                >
-                    Checkout
-                </button>
+                <Link to="/my-orders/last" className="w-full">
+                    <button 
+                        className="w-full py-3 bg-black text-white rounded-lg transition hover:bg-green-500 disabled:bg-slate-200"
+                        onClick={() => {
+                            handelCheckout();
+                        }}
+                        disabled={cartProducts.length === 0}
+                    >
+                        Checkout
+                    </button>
+                </Link>
             </div>
         </aside>
     )
