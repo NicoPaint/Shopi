@@ -20,8 +20,8 @@ const CheckoutSideMenu = () => {
         setCount,
         cartProducts,
         setCartProducts,
-        order,
-        setOrder
+        orders,
+        setOrders
     } = useContext(ShopiContext);
 
     const handelDelete = (id) => {
@@ -39,7 +39,7 @@ const CheckoutSideMenu = () => {
             totalPrice: +totalPrice(cartProducts), //se agregó el signo + a finalPrice para convertirlo de string a número porque en la copia ese dato se convirtió en string.
         }
 
-        setOrder([...order, orderToAdd]);
+        setOrders([...orders, orderToAdd]);
         setTimeout(emptyTheBag, 30);  //por alguna razón cuando le aplico el Link al boton y se oprime, este borra el cartProduct pero vuelve y agrega el ultimo producto que estaba en el array y no lo borra del checkoutSideMenu. Solo aplicandole este timeout puedo evitar que eso suceda.
     }
 

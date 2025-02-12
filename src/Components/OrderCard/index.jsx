@@ -65,7 +65,7 @@ const OrderCard = ({ productData, finalPrice, handelDelete }) => {
         renderQuantity = 
         <div className="flex items-center gap-3">
             <span>Quantity:</span>
-            <span>{finalPrice/productData.price}</span>
+            <span>{Math.round(finalPrice/productData.price)}</span>
         </div>
     }
 
