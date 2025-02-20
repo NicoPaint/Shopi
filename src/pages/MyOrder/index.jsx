@@ -41,7 +41,7 @@ function MyOrder() {
       </div>
       <p className="flex items-center gap-1 mb-16">
           <span className="font-light">Total:</span>
-          <span className="font-medium text-xl">${orders[index - 1].totalPrice.toFixed(2)}</span>
+          <span className="font-medium text-xl">${orders[index - 1]?.totalPrice.toFixed(2)}</span>
       </p>
     </Layout>
   )

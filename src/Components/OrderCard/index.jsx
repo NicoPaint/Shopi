@@ -6,7 +6,7 @@ import { ShopiContext } from "../../Context";
 //Third-party components
 import { XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
 
-const OrderCard = ({ productData, finalPrice, handelDelete }) => {
+const OrderCard = ({ productData, finalPrice, handelDelete, handelQuantity }) => {
     
     const [itemQuantity, setItemQuantity] = useState(1);  //Se usa este estado local para manejar la cantidad de items en el carrito.
 
@@ -22,21 +22,6 @@ const OrderCard = ({ productData, finalPrice, handelDelete }) => {
     const minusOne = () => {
         setItemQuantity(itemQuantity - 1);
     }
-    
-    const finalItemPrice = (price, quantity) => {
-        const finalPrice = price * quantity;
-        return finalPrice.toFixed(2);
-    }
-
-    //Este funcion actualiza el estado de productos del carrito cada vez que el usuario cambia la cantidad del items en el carrito
-    useEffect(() => {
-        const finalPrice = finalItemPrice(productData.price, itemQuantity);
-        const cartCopy = [...cartProducts];
-        const productIndex = cartCopy.findIndex(product => product.productData.id === productData.id);
-
-        cartCopy.splice(productIndex, 1, { productData, finalPrice: +finalPrice});  //se agregó el signo + a finalPrice para convertirlo de string a número porque en la copia ese dato se convirtió en string.
-        setCartProducts(cartCopy);
-    }, [itemQuantity]);
 
     let renderXMarkIcon;
     let renderQuantity;
@@ -48,7 +33,10 @@ const OrderCard = ({ productData, finalPrice, handelDelete }) => {
         <div className="flex items-center gap-3">
             <button 
                 className="flex items-center justify-center w-6 h-6 text-black rounded-full border-[1px] border-slate-600 transition hover:bg-black hover:text-white hover:border-transparent disabled:bg-slate-200 disabled:text-white disabled:border-transparent"
-                onClick={minusOne}
+                onClick={() => {
+                    minusOne();
+                    handelQuantity(productData, itemQuantity - 1, true);  //Tuve que resta el uno al itemQuantity por el modo que funciona React. Primero manda el valor actual del estado antes de volver a renderizar el componente con el nuevo valor. Por lo que me estaba mandando un valor viejo y se necesitaba el actualizado. Lo mismo aplica para cuando se suma en el siguiente botón
+                }}
                 disabled={itemQuantity <= 1}
             >
                 <MinusIcon className="w-5 h-5"/>
@@ -56,7 +44,10 @@ const OrderCard = ({ productData, finalPrice, handelDelete }) => {
             <span>{itemQuantity}</span>
             <button 
                 className="flex items-center justify-center w-6 h-6 text-black rounded-full border-[1px] border-slate-600 transition hover:bg-black hover:text-white hover:border-transparent"
-                onClick={plusOne}
+                onClick={() => {
+                    plusOne();
+                    handelQuantity(productData, itemQuantity + 1, false);
+                }}
             >
                 <PlusIcon className="w-5 h-5"/>
             </button>

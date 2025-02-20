@@ -31,6 +31,19 @@ const CheckoutSideMenu = () => {
         setCartProducts(filteredBagProducts);
     }
 
+
+    //Este funcion actualiza el estado de productos del carrito cada vez que el usuario cambia la cantidad del items en el carrito
+    const handelQuantity = (productData, itemQuantity, isMinus) => {
+        const finalPrice = (productData.price * itemQuantity).toFixed(2);
+        const cartCopy = [...cartProducts];
+        const productIndex = cartCopy.findIndex(product => product.productData.id === productData.id);
+    
+        cartCopy.splice(productIndex, 1, { productData, finalPrice: +finalPrice});  //se agregó el signo + a finalPrice para convertirlo de string a número porque en la copia ese dato se convirtió en string.
+        setCartProducts(cartCopy);
+
+        return isMinus ? itemQuantity - 1 : itemQuantity + 1;
+    }
+
     const handelCheckout = () => {
         const orderToAdd = {
             date: "02.04.2025",
@@ -40,7 +53,8 @@ const CheckoutSideMenu = () => {
         }
 
         setOrders([...orders, orderToAdd]);
-        setTimeout(emptyTheBag, 30);  //por alguna razón cuando le aplico el Link al boton y se oprime, este borra el cartProduct pero vuelve y agrega el ultimo producto que estaba en el array y no lo borra del checkoutSideMenu. Solo aplicandole este timeout puedo evitar que eso suceda.
+        emptyTheBag();  //por alguna razón cuando le aplico el Link al boton y se oprime, este borra el cartProduct pero vuelve y agrega el ultimo producto que estaba en el array y no lo borra del checkoutSideMenu. Solo aplicandole este timeout puedo evitar que eso suceda.
+        //Ya encontré el problema. Era el useEffect que estaba usando en el componente OrderCard, ya que este renderizaba la primera vez y luego ejecutaba el useEffect y volvia a renderizar el componente. Esto lo hacia muchas veces y terminaba trayendo ese ultimo producto.
     }
 
     const emptyTheBag = () => {
@@ -67,6 +81,7 @@ const CheckoutSideMenu = () => {
                         productData={product.productData}
                         finalPrice={product.finalPrice} 
                         handelDelete={handelDelete}
+                        handelQuantity={handelQuantity}
                     />
                 ))}
             </div>
