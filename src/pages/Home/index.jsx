@@ -1,37 +1,51 @@
 //Este componente es la página principal donde se muestra todos los articulos disponibles en el Ecommerce
 //React
-import { useState, useEffect } from "react"
+import { useContext } from "react"
 //Components
 import { Layout } from "../../Components/Layout"
 import { Card } from "../../Components/Card"
 import { ProductDetail } from "../../Components/ProductDetail"
+//Context
+import { ShopiContext } from "../../Context"
 
 function Home() {
-  const [products, setProducts] = useState(null)  //Este estado va a almacenar los productos que se traen de la API.
+  
+  const {
+    filteredProducts,
+    setSearchByTitle
+  } = useContext(ShopiContext);
 
-  //Se hace el llamado a la API dentro de un useEffect para hacerlo una sola vez. Dentro esta en modo promesas y async/await
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then(response => response.json())
-      .then(data => setProducts(data));
-
-    /* const fetchProducts = async () => {
-      const response = await fetch("https://api.escuelajs.co/api/v1/products");
-      const data = await response.json();
-
-      setProducts(data)
+  const renderView = () => {
+    if(filteredProducts?.length > 0){
+      return(
+        filteredProducts?.map(product => (
+          <Card key={product.id} data={product}/>
+        ))
+      )
+    } else {
+      return(
+        <div>
+          no hay productos con ese nombre
+        </div>
+      )
     }
-
-    fetchProducts(); */
-  }, [])
+  }
 
   return (
     <Layout>
-      Home
+      <div className="flex justify-center items-center relative w-80 mb-4 font-semibold text-xl">
+        <h1>Browse our Latest Products</h1>
+      </div>
+      <form action="">
+        <input 
+          type="text"
+          placeholder="Search them all..."
+          className="w-96 p-3 mb-8 rounded-lg border border-black focus:outline-none"
+          onChange={(event) => setSearchByTitle(event.target.value)}
+        />
+      </form>
       <div className="grid grid-cols-4 place-items-center w-full max-w-screen-lg gap-4">
-        {products?.map(product => (
-          <Card key={product.id} data={product}/>
-        ))}
+        {renderView()}
       </div>
       <ProductDetail />
     </Layout>

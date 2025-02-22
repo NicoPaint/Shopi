@@ -3,7 +3,7 @@ import { useRoutes, BrowserRouter } from 'react-router-dom'
 //Context
 import { ShopiProvider } from '../../Context'
 //Pages
-import { Home } from '../Home/Index'
+import { Home } from '../Home'
 import { MyAccount } from '../MyAccount'
 import { MyOrder } from '../MyOrder'
 import { MyOrders } from '../MyOrders'
