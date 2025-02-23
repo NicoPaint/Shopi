@@ -27,8 +27,14 @@ const ShopiProvider = ({ children }) => {
     //Get API products
     const [products, setProducts] = useState(null)  //Este estado va a almacenar los productos que se traen de la API.
 
+    //Filtered Products
+    const [filteredProducts, setFilteredProducts] = useState([])  //Almacena el array de prodcuts filtrados
+
     //Get products by Title
-    const [searchByTitle, setSearchByTitle] = useState('')  //Almacena lo que los usarios escriban en la barra de búsqueda. Se inicializa como string vacio para que funcione la función de filtrado mas adelante
+    const [searchByTitle, setSearchByTitle] = useState('');  //Almacena lo que los usarios escriban en la barra de búsqueda. Se inicializa como string vacio para que funcione la función de filtrado mas adelante
+
+    //Get products by category
+    const [searchByCategory, setSearchByCategory] = useState('');  //Almacena los tipos de categorias cada ves que el usuario se mueva entre los diferentes menus o páginas de la app.
     
     //Se hace el llamado a la API dentro de un useEffect para hacerlo una sola vez. Dentro esta en modo promesas y async/await
     useEffect(() => {
@@ -46,7 +52,43 @@ const ShopiProvider = ({ children }) => {
         fetchProducts(); */
     }, [])
 
-    const filteredProducts = products?.filter(product => product.title.toLowerCase().includes(searchByTitle?.toLowerCase())); //Array de productos filtrados por titulo. Sino se busca nada, se devuelve toda la lista porque searchByTitle es un string vacio.
+    //Estas 2 funciones obtienen el array de productos filtrados segun la condicion (por titulo o por categoria)
+    const filterProductsByTitle = (products, searchByTitle) => {
+        return products?.filter(product => product.title.toLowerCase().includes(searchByTitle?.toLowerCase()))
+    }
+    const filterProductsByCategory = (products, searchByCategory) => {
+        return products?.filter(product => product.category.toLowerCase().includes(searchByCategory?.toLowerCase()))
+    }
+
+    //Como tenemos 2 tipos diferentes de filtrados podemos tener 4 casos diferentes (2x2 = 4), por lo que esta función determina que hacer en cada unos de ellos.
+    const filterBy = (searchType, products, searchByTitle, searchByCategory) => {
+
+        //si es por los 2 tipos, primero hace le filtro por categoria y despues por titulo (search bar) y se regresa el resultado
+        if(searchType === "BY_TITLE_AND_CATEGORY"){
+            return filterProductsByCategory(products, searchByCategory).filter(product => product.title.toLowerCase().includes(searchByTitle?.toLowerCase()));
+        } 
+        //si es solo por titulo, hace solo el filtrado por titulo y se regresa el resultado
+        else if (searchType === "BY_TITLE"){
+            return filterProductsByTitle(products, searchByTitle);
+        } 
+        //si es solo por categoria, hace solo el filtrado por categoria y se regresa el resultado
+        else if (searchType === "BY_CATEGORY"){
+            return filterProductsByCategory(products, searchByCategory);
+        } 
+        //si no hace ninguno, se regresa la lista total de productos
+        else if (!searchType){
+            return products
+        }
+    }
+
+    //Este useEffect reasigna el valor de los productos filtrados acorde a que tipo de filtrado esta sido utilizado por el usuario (los 4 escenarios posibles), para mostrar el resultado en la vista de home.
+    useEffect(() => {
+        if(searchByTitle && searchByCategory) setFilteredProducts(filterBy("BY_TITLE_AND_CATEGORY", products, searchByTitle, searchByCategory));
+        if(searchByTitle && !searchByCategory) setFilteredProducts(filterBy("BY_TITLE", products, searchByTitle, searchByCategory));
+        if(!searchByTitle && searchByCategory) setFilteredProducts(filterBy("BY_CATEGORY", products, searchByTitle, searchByCategory));
+        if(!searchByTitle && !searchByCategory) setFilteredProducts(filterBy(null, products, searchByTitle, searchByCategory));
+    }, [products, searchByTitle, searchByCategory])
+
 
     return(
         <ShopiContext.Provider value={{
@@ -68,7 +110,9 @@ const ShopiProvider = ({ children }) => {
             setProducts,
             searchByTitle,
             setSearchByTitle,
-            filteredProducts
+            filteredProducts,
+            searchByCategory,
+            setSearchByCategory,
         }}>
             {children}
         </ShopiContext.Provider>

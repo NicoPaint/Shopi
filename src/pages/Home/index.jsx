@@ -12,20 +12,24 @@ function Home() {
   
   const {
     filteredProducts,
-    setSearchByTitle
+    setSearchByTitle,
   } = useContext(ShopiContext);
 
   const renderView = () => {
     if(filteredProducts?.length > 0){
       return(
-        filteredProducts?.map(product => (
-          <Card key={product.id} data={product}/>
-        ))
+        <div className="grid grid-cols-4 place-items-center w-full max-w-screen-lg gap-4">
+          {filteredProducts?.map(product => (
+            <Card key={product.id} data={product}/>
+          ))}
+        </div>
       )
     } else {
       return(
-        <div>
-          no hay productos con ese nombre
+        <div className="grid place-items-center w-full max-w-screen-lg gap-4">
+          <p className="text-2xl">
+            Sorry, there are no results available for this search.
+          </p>
         </div>
       )
     }
@@ -44,9 +48,7 @@ function Home() {
           onChange={(event) => setSearchByTitle(event.target.value)}
         />
       </form>
-      <div className="grid grid-cols-4 place-items-center w-full max-w-screen-lg gap-4">
-        {renderView()}
-      </div>
+      {renderView()}
       <ProductDetail />
     </Layout>
   )

@@ -15,7 +15,8 @@ const NavBar = () => {
         isCheckoutSideMenuOpen,
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
-        closeProductDetail
+        closeProductDetail,
+        setSearchByCategory
     } = useContext(ShopiContext);
 
     const toggleShoppingBag = () => {
@@ -39,46 +40,43 @@ const NavBar = () => {
                     <NavLink 
                         to='/'
                         className={({isActive}) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('')}
                     >
                         All
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
-                        to='/Clothes'
+                        to='/clothes'
                         className={({isActive}) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('clothing')}
                     >
                         Clothes
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
-                        to='/Electronics'
+                        to='/electronics'
                         className={({isActive}) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('electronics')}
                     >
                         Electronics
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
-                        to='/Furniture'
+                        to='/jewelry'
                         className={({isActive}) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('jewel')}
                     >
-                        Furniture
+                        Jewelry
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
-                        to='/Toys'
+                        to='/others'
                         className={({isActive}) => isActive ? activeStyle : undefined}
-                    >
-                        Toys
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink 
-                        to='/Others'
-                        className={({isActive}) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('others')}
                     >
                         Others
                     </NavLink>
