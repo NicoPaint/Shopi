@@ -1,5 +1,5 @@
 //React
-import { useRoutes, HashRouter } from 'react-router-dom'
+import { useRoutes, BrowserRouter } from 'react-router-dom'
 //Context
 import { ShopiProvider } from '../../Context'
 //Pages
@@ -39,12 +39,12 @@ function App() {
 
   return (
     <ShopiProvider>
-      {/*HashRouter determina que elemento mostrar según la ruta en la URL. Cambiamos de BrowserRouter a HashRouter porque GitHub pages no soporta client-side routing*/}
-      <HashRouter>
+      {/*BrowserRouter determina que elemento mostrar según la ruta en la URL*/}
+      <BrowserRouter basename='/Shopi'> {/* Con basename definimos el nombre del repo como la base para que funcione el Routing en GitHub Pages. Todavia falta solucionar el tema de recargar la pagina */}
         <NavBar />
         <AppRoutes />
         <CheckoutSideMenu />
-      </HashRouter>
+      </BrowserRouter>
     </ShopiProvider>
   )
 }
