@@ -1,5 +1,5 @@
 //React
-import { useRoutes, BrowserRouter } from 'react-router-dom'
+import { useRoutes, HashRouter } from 'react-router-dom'
 //Context
 import { ShopiProvider } from '../../Context'
 //Pages
@@ -18,18 +18,18 @@ import './App.css'
 //Esta función define las rutas de las páginas del proyecto
 const AppRoutes = () => {
   let routes = useRoutes([
-    {path: '/Shopi', element: <Home />},
-    {path: '/Shopi/Clothes', element: <Home />},
-    {path: '/Shopi/Electronics', element: <Home />},
-    {path: '/Shopi/Jewelry', element: <Home />},
-    {path: '/Shopi/Others', element: <Home />},
-    {path: '/Shopi/my-account', element: <MyAccount />},
-    {path: '/Shopi/my-order', element: <MyOrder />},
-    {path: '/Shopi/my-orders', element: <MyOrders />},
-    {path: '/Shopi/my-orders/last', element: <MyOrder />},
-    {path: '/Shopi/my-orders/:id', element: <MyOrder />},
-    {path: '/Shopi/sign-in', element: <SingIn />},
-    {path: '/Shopi/*', element: <NotFound />},
+    {path: '/', element: <Home />},
+    {path: '/Clothes', element: <Home />},
+    {path: '/Electronics', element: <Home />},
+    {path: '/Jewelry', element: <Home />},
+    {path: '/Others', element: <Home />},
+    {path: '/my-account', element: <MyAccount />},
+    {path: '/my-order', element: <MyOrder />},
+    {path: '/my-orders', element: <MyOrders />},
+    {path: '/my-orders/last', element: <MyOrder />},
+    {path: '/my-orders/:id', element: <MyOrder />},
+    {path: '/sign-in', element: <SingIn />},
+    {path: '/*', element: <NotFound />},
   ])
 
   return routes;
@@ -39,12 +39,12 @@ function App() {
 
   return (
     <ShopiProvider>
-      {/*BrowserRouter determina que elemento mostrar según la ruta en la URL*/}
-      <BrowserRouter>
+      {/*HashRouter determina que elemento mostrar según la ruta en la URL. Cambiamos de BrowserRouter a HashRouter porque GitHub pages no soporta client-side routing*/}
+      <HashRouter>
         <NavBar />
         <AppRoutes />
         <CheckoutSideMenu />
-      </BrowserRouter>
+      </HashRouter>
     </ShopiProvider>
   )
 }
