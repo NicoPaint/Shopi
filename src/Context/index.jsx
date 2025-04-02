@@ -35,9 +35,16 @@ const ShopiProvider = ({ children }) => {
 
     //Get products by category
     const [searchByCategory, setSearchByCategory] = useState('');  //Almacena los tipos de categorias cada ves que el usuario se mueva entre los diferentes menus o páginas de la app.
+
+    //My account LocalStorage
+    const [account, setAccount] = useState({});  //Este estado almacena la informacion que haya sobre las cuentas en el local storage del navegador
+
+    //Sign Out LocalStorage
+    const [signOut, setSignOut] = useState(false);  //Este estado se utiliza para manejar si el usuario esta conectado o no.
     
-    //Se hace el llamado a la API dentro de un useEffect para hacerlo una sola vez. Dentro esta en modo promesas y async/await
+    //Se hace el llamado a la API dentro de un useEffect para hacerlo una sola vez. Dentro esta en modo promesas y async/await. Tambien se hace inicializa la informacion del local storage (las cuentas y el estado de sign out).
     useEffect(() => {
+        //Llamado a la API
         fetch("https://fakestoreapi.com/products")
             .then(response => response.json())
             .then(data => setProducts(data));
@@ -50,6 +57,31 @@ const ShopiProvider = ({ children }) => {
         }
 
         fetchProducts(); */
+
+        //Inicializacion del local Storage para Account y Sign Out
+        const initializeLocalStorage = () => {
+            const accountInLocalStorage = localStorage.getItem('account');
+            const signOutInLocalStorage = localStorage.getItem('sign-out');
+
+            let parsedAccount;
+            let parsedSignOut;
+
+            if(!accountInLocalStorage){
+                localStorage.setItem('account', JSON.stringify({}));
+            } else {
+                parsedAccount = JSON.parse(accountInLocalStorage);
+                setAccount(parsedAccount);
+            }
+
+            if(!signOutInLocalStorage){
+                localStorage.setItem("sign-out", JSON.stringify(false));
+            } else{
+                parsedSignOut = JSON.parse(signOutInLocalStorage);
+                setSignOut(parsedSignOut);
+            }
+        }
+
+        initializeLocalStorage()
     }, [])
 
     //Estas 2 funciones obtienen el array de productos filtrados segun la condicion (por titulo o por categoria)
@@ -113,6 +145,10 @@ const ShopiProvider = ({ children }) => {
             filteredProducts,
             searchByCategory,
             setSearchByCategory,
+            account,
+            setAccount,
+            signOut,
+            setSignOut
         }}>
             {children}
         </ShopiContext.Provider>

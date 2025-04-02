@@ -16,7 +16,9 @@ const NavBar = () => {
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
         closeProductDetail,
-        setSearchByCategory
+        setSearchByCategory,
+        signOut,
+        setSignOut
     } = useContext(ShopiContext);
 
     const toggleShoppingBag = () => {
@@ -26,6 +28,11 @@ const NavBar = () => {
             closeProductDetail();
             openCheckoutSideMenu();
         }
+    }
+
+    const handleSignOut = () => {
+        localStorage.setItem("sign-out", JSON.stringify(true));  //Cambia el valor el LS de sign-out
+        setSignOut(true);  //Cambia el valor en el estado signOut
     }
 
     return(
@@ -106,6 +113,7 @@ const NavBar = () => {
                     <NavLink 
                         to='/sign-in'
                         className={({isActive}) => isActive ? activeStyle : undefined}
+                        onClick={handleSignOut}
                     >
                         Sign In
                     </NavLink>
