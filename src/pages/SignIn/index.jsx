@@ -6,7 +6,7 @@ function SingIn() {
 
     return (
       <Layout>
-        SingIn
+        Sign In
       </Layout>
     )
   }

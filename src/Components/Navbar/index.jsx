@@ -35,6 +35,60 @@ const NavBar = () => {
         setSignOut(true);  //Cambia el valor en el estado signOut
     }
 
+    const handleSignIn = () => {
+        localStorage.setItem("sign-out", JSON.stringify(false));  //Cambia el valor el LS de sign-out
+        setSignOut(false);  //Cambia el valor en el estado signOut
+    }
+
+    const renderView = () => {
+        if(signOut){
+            return(
+                <li>
+                    <NavLink 
+                        to='/'
+                        className={({isActive}) => isActive ? activeStyle : undefined}
+                        onClick={handleSignIn}
+                    >
+                        Sign In
+                    </NavLink>
+                </li>
+            )
+        } else {
+            return(
+                <>
+                    <li className="text-black/60">
+                    test@123.com
+                    </li>
+                    <li>
+                        <NavLink 
+                            to='/my-orders'
+                            className={({isActive}) => isActive ? activeStyle : undefined}
+                        >
+                            My Orders
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                            to='/my-account'
+                            className={({isActive}) => isActive ? activeStyle : undefined}
+                        >
+                            My Account
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                            to='/sign-in'
+                            className={({isActive}) => isActive ? activeStyle : undefined}
+                            onClick={handleSignOut}
+                        >
+                            Sign Out
+                        </NavLink>
+                    </li>
+                </>
+            )
+        }
+    }
+
     return(
         <nav  className="flex justify-between items-center  w-full py-5 px-8 text-sm font-light">
             <ul className="flex items-center gap-3">
@@ -90,34 +144,7 @@ const NavBar = () => {
                 </li>
             </ul>
             <ul className="flex items-center gap-3">
-                <li className="text-black/60">
-                    test@123.com
-                </li>
-                <li>
-                    <NavLink 
-                        to='/my-orders'
-                        className={({isActive}) => isActive ? activeStyle : undefined}
-                    >
-                        My Orders
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink 
-                        to='/my-account'
-                        className={({isActive}) => isActive ? activeStyle : undefined}
-                    >
-                        My Account
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink 
-                        to='/sign-in'
-                        className={({isActive}) => isActive ? activeStyle : undefined}
-                        onClick={handleSignOut}
-                    >
-                        Sign In
-                    </NavLink>
-                </li>
+                {renderView()}
                 <li 
                     className="flex items-center justify-center"
                     onClick={() => toggleShoppingBag()}
