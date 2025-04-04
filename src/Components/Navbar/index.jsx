@@ -35,19 +35,14 @@ const NavBar = () => {
         setSignOut(true);  //Cambia el valor en el estado signOut
     }
 
-    const handleSignIn = () => {
-        localStorage.setItem("sign-out", JSON.stringify(false));  //Cambia el valor el LS de sign-out
-        setSignOut(false);  //Cambia el valor en el estado signOut
-    }
 
     const renderView = () => {
         if(signOut){
             return(
                 <li>
                     <NavLink 
-                        to='/'
+                        to='/sign-in'
                         className={({isActive}) => isActive ? activeStyle : undefined}
-                        onClick={handleSignIn}
                     >
                         Sign In
                     </NavLink>

@@ -37,7 +37,7 @@ const ShopiProvider = ({ children }) => {
     const [searchByCategory, setSearchByCategory] = useState('');  //Almacena los tipos de categorias cada ves que el usuario se mueva entre los diferentes menus o páginas de la app.
 
     //My account LocalStorage
-    const [account, setAccount] = useState({});  //Este estado almacena la informacion que haya sobre las cuentas en el local storage del navegador
+    const [account, setAccount] = useState([]);  //Este estado almacena la informacion que haya sobre las cuentas en el local storage del navegador
 
     //Sign Out LocalStorage
     const [signOut, setSignOut] = useState(false);  //Este estado se utiliza para manejar si el usuario esta conectado o no.
@@ -67,7 +67,7 @@ const ShopiProvider = ({ children }) => {
             let parsedSignOut;
 
             if(!accountInLocalStorage){
-                localStorage.setItem('account', JSON.stringify({}));
+                localStorage.setItem('account', JSON.stringify([]));
             } else {
                 parsedAccount = JSON.parse(accountInLocalStorage);
                 setAccount(parsedAccount);
