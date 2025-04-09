@@ -121,6 +121,23 @@ const ShopiProvider = ({ children }) => {
         if(!searchByTitle && !searchByCategory) setFilteredProducts(filterBy(null, products, searchByTitle, searchByCategory));
     }, [products, searchByTitle, searchByCategory])
 
+    const addNewAccount = (accountData) => {
+        const accountsInLocalStorage = localStorage.getItem("account");
+        const accountsArray = JSON.parse(accountsInLocalStorage);
+
+        const doesAccountExist = accountsArray.some(account => account.email === accountData.email);
+
+        if(!doesAccountExist){
+            accountsArray.push(accountData);
+            localStorage.setItem("account", JSON.stringify(accountsArray));
+            setAccount(accountsArray);
+            
+            return "show-success";
+        }
+
+        return "show-error";
+    }
+
 
     return(
         <ShopiContext.Provider value={{
@@ -147,6 +164,7 @@ const ShopiProvider = ({ children }) => {
             setSearchByCategory,
             account,
             setAccount,
+            addNewAccount,
             signOut,
             setSignOut
         }}>

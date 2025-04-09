@@ -14,18 +14,58 @@ function SingIn() {
     const {
       account,
       setAccount,
+      addNewAccount,
       signOut,
       setSignOut
     } = useContext(ShopiContext);
 
     const [isSignUp, setIsSignUp] = useState(false);
+    const [creationMessage, setCreationMessage] = useState('');
 
     const signInForm = useRef(null);
-    const LogInForm = useRef(null);
+    const signUpForm = useRef(null);
 
     const handleSignIn = () => {
       localStorage.setItem("sign-out", JSON.stringify(false));  //Cambia el valor el LS de sign-out
       setSignOut(false);  //Cambia el valor en el estado signOut
+    }
+
+    const createNewUser = () => {
+      const formData = new FormData(signUpForm.current);
+
+      const newUserData = {
+        name: formData.get("name"),
+        email: formData.get("email").toLowerCase(),
+        password: formData.get("password")
+      }
+
+      if(!newUserData.name || !newUserData.email || !newUserData.password){
+        setCreationMessage('missing-info')
+      } else {
+        setCreationMessage(addNewAccount(newUserData));
+      }
+    }
+
+    const renderCreationMessage = () => {
+      if(creationMessage === "show-success"){
+        return(
+          <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-green-400 rounded-lg opacity-75">
+            <p>Congratulations! You can now log in.</p>
+          </div>
+        )
+      } else if(creationMessage === "show-error") {
+        return(
+          <div className="absolute -top-28 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-red-400 rounded-lg opacity-75">
+            <p>Sorry, an account with that email already exists</p>
+          </div>
+        )
+      } else if (creationMessage === "missing-info"){
+        return(
+          <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-orange-400 rounded-lg opacity-75">
+            <p>Please fill all information out</p>
+          </div>
+        )
+      }
     }
 
     const renderView = () => {
@@ -36,7 +76,7 @@ function SingIn() {
               <h1 className="text-2xl font-bold">Sign In</h1>
               <p className="text-sm">Good to see you again</p>
             </div>
-            <form className="flex flex-col gap-3">
+            <form ref={signInForm} className="flex flex-col gap-3">
               <input type="email" className="w-80 px-2 py-1 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500" placeholder="Email"/>
               <input type="password" className="w-80 px-2 py-1 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500" placeholder="Password"/>
               <a href="">
@@ -71,12 +111,18 @@ function SingIn() {
       } else {
         return(
           <div className="px-10 py-5 relative shadow-xl rounded">
-              <ChevronLeftIcon className="absolute size-8 top-3 left-1 cursor-pointer hover:text-orange-500" onClick={() => setIsSignUp(false)}/>
+              <ChevronLeftIcon 
+                className="absolute size-8 top-3 left-1 cursor-pointer hover:text-orange-500" 
+                onClick={() => {
+                  setIsSignUp(false);
+                  setCreationMessage('');
+                }}
+              />
               <div className="py-4">
                 <h1 className="text-2xl font-bold">Create your account</h1>
                 <p className="text-sm">Please fill out the following information:</p>
               </div>
-              <form className="flex flex-col">
+              <form ref={signUpForm} className="flex flex-col">
                 <label htmlFor="name" className="font-bold text-sm">Your name:</label>
                 <input 
                   type="text"
@@ -104,11 +150,12 @@ function SingIn() {
                 <button 
                   type="button" 
                   className="w-60 px-2 py-1 mb-1 mx-auto text-white bg-black border-2 border-transparent rounded hover:bg-orange-500"
-                  onClick={() => setIsSignUp(false)}
+                  onClick={createNewUser}
                 >
                   Sign Up
                 </button>
               </form>
+              {renderCreationMessage()}
             </div>
         )
       }
