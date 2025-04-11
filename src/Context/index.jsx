@@ -37,7 +37,7 @@ const ShopiProvider = ({ children }) => {
     const [searchByCategory, setSearchByCategory] = useState('');  //Almacena los tipos de categorias cada ves que el usuario se mueva entre los diferentes menus o páginas de la app.
 
     //My account LocalStorage
-    const [account, setAccount] = useState([]);  //Este estado almacena la informacion que haya sobre las cuentas en el local storage del navegador
+    const [accounts, setAccounts] = useState([]);  //Este estado almacena la informacion que haya sobre las cuentas en el local storage del navegador
 
     //Sign Out LocalStorage
     const [signOut, setSignOut] = useState(false);  //Este estado se utiliza para manejar si el usuario esta conectado o no.
@@ -70,11 +70,11 @@ const ShopiProvider = ({ children }) => {
                 localStorage.setItem('account', JSON.stringify([]));
             } else {
                 parsedAccount = JSON.parse(accountInLocalStorage);
-                setAccount(parsedAccount);
+                setAccounts(parsedAccount);
             }
 
             if(!signOutInLocalStorage){
-                localStorage.setItem("sign-out", JSON.stringify(false));
+                localStorage.setItem("sign-out", JSON.stringify(true));
             } else{
                 parsedSignOut = JSON.parse(signOutInLocalStorage);
                 setSignOut(parsedSignOut);
@@ -130,12 +130,12 @@ const ShopiProvider = ({ children }) => {
         if(!doesAccountExist){
             accountsArray.push(accountData);
             localStorage.setItem("account", JSON.stringify(accountsArray));
-            setAccount(accountsArray);
+            setAccounts(accountsArray);
             
             return "show-success";
         }
 
-        return "show-error";
+        return "show-error-signup";
     }
 
 
@@ -162,8 +162,8 @@ const ShopiProvider = ({ children }) => {
             filteredProducts,
             searchByCategory,
             setSearchByCategory,
-            account,
-            setAccount,
+            accounts,
+            setAccounts,
             addNewAccount,
             signOut,
             setSignOut
