@@ -1,6 +1,7 @@
 //Este componente es la card donde se va a mostrar la información de los productos
 //React
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 //Third-party Components
 import { PlusCircleIcon, CheckIcon } from "@heroicons/react/24/outline";
 //Context
@@ -19,22 +20,35 @@ const Card = ({ data }) => {
         setCartProducts,
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
+        signOut
     } = useContext(ShopiContext);
+
+    let navigate = useNavigate();
 
     //esta funcion abre el product detail section y guarda la información del producto cada vez que dan click a una card.
     const showProduct = (ProductDetail) => {
-        openProductDetail();
-        closeCheckoutSideMenu();
-        setProductToShow(ProductDetail);
+
+        if(!signOut){
+            openProductDetail();
+            closeCheckoutSideMenu();
+            setProductToShow(ProductDetail);
+        } else{
+            navigate('/sign-in');
+        }
     }
 
     //esta función abre el checkout side menu, suma uno al contador del shopping bag y guarda la informacion del producto que usuario va a comprar cada vez que el dan click al icono de mas + en la card. Se agregab el finalPrice para poder calcular el precio total de la orden.
     const addProductsToBag = (event, productData) => {
-        event.stopPropagation();
-        setCount(count + 1);
-        setCartProducts([...cartProducts, { productData, finalPrice: productData.price }]);
-        openCheckoutSideMenu();
-        closeProductDetail();
+
+        if(!signOut){
+            event.stopPropagation();
+            setCount(count + 1);
+            setCartProducts([...cartProducts, { productData, finalPrice: productData.price }]);
+            openCheckoutSideMenu();
+            closeProductDetail();
+        } else{
+            navigate('/sign-in');
+        }
     }
 
     //esta funcion cambia el icono de la esquina superior derecha de la card dependiendo si el producto fue agregado a la bolsa o no
