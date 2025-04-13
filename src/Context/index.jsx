@@ -38,6 +38,7 @@ const ShopiProvider = ({ children }) => {
 
     //My account LocalStorage
     const [accounts, setAccounts] = useState([]);  //Este estado almacena la informacion que haya sobre las cuentas en el local storage del navegador
+    const [loggedInUser, setLoggedInUser] = useState({});  //Este estado almacena la informacion del usuario logeado.
 
     //Sign Out LocalStorage
     const [signOut, setSignOut] = useState(false);  //Este estado se utiliza para manejar si el usuario esta conectado o no.
@@ -166,7 +167,9 @@ const ShopiProvider = ({ children }) => {
             setAccounts,
             addNewAccount,
             signOut,
-            setSignOut
+            setSignOut,
+            loggedInUser, 
+            setLoggedInUser
         }}>
             {children}
         </ShopiContext.Provider>

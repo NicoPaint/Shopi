@@ -14,7 +14,8 @@ function SingIn() {
     const {
       accounts,
       addNewAccount,
-      setSignOut
+      setSignOut,
+      setLoggedInUser
     } = useContext(ShopiContext);
 
     const [isSignUp, setIsSignUp] = useState(false);
@@ -36,7 +37,15 @@ function SingIn() {
       if(!userData.email || !userData.password){
         setPopUpMessage('missing-info');
       } else {
-        const userAccount = accounts.some(user => user.email === userData.email && user.password === userData.password);
+        const userAccount = accounts.some(user => {
+          
+          if(user.email === userData.email && user.password === userData.password){
+            setLoggedInUser(user);
+          }
+
+          return user.email === userData.email && user.password === userData.password
+        
+        });
 
         if(userAccount){
           localStorage.setItem("sign-out", JSON.stringify(false));  //Cambia el valor el LS de sign-out
