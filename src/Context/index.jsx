@@ -36,8 +36,10 @@ const ShopiProvider = ({ children }) => {
     //Get products by category
     const [searchByCategory, setSearchByCategory] = useState('');  //Almacena los tipos de categorias cada ves que el usuario se mueva entre los diferentes menus o páginas de la app.
 
-    //My account LocalStorage
+    //Accounts LocalStorage
     const [accounts, setAccounts] = useState([]);  //Este estado almacena la informacion que haya sobre las cuentas en el local storage del navegador
+
+    //Logged User information
     const [loggedInUser, setLoggedInUser] = useState({});  //Este estado almacena la informacion del usuario logeado.
 
     //Sign Out LocalStorage
@@ -61,17 +63,26 @@ const ShopiProvider = ({ children }) => {
 
         //Inicializacion del local Storage para Account y Sign Out
         const initializeLocalStorage = () => {
-            const accountInLocalStorage = localStorage.getItem('account');
+            const accountsInLocalStorage = localStorage.getItem('accounts');
+            const loggedUserInLocalStorage = localStorage.getItem('loggedUser');
             const signOutInLocalStorage = localStorage.getItem('sign-out');
 
             let parsedAccount;
+            let parsedUser;
             let parsedSignOut;
 
-            if(!accountInLocalStorage){
-                localStorage.setItem('account', JSON.stringify([]));
+            if(!accountsInLocalStorage){
+                localStorage.setItem('accounts', JSON.stringify([]));
             } else {
-                parsedAccount = JSON.parse(accountInLocalStorage);
+                parsedAccount = JSON.parse(accountsInLocalStorage);
                 setAccounts(parsedAccount);
+            }
+
+            if(!loggedUserInLocalStorage){
+                localStorage.setItem('loggedUser', JSON.stringify({}));
+            } else {
+                parsedUser = JSON.parse(loggedUserInLocalStorage);
+                setLoggedInUser(parsedUser);
             }
 
             if(!signOutInLocalStorage){
@@ -123,20 +134,26 @@ const ShopiProvider = ({ children }) => {
     }, [products, searchByTitle, searchByCategory])
 
     const addNewAccount = (accountData) => {
-        const accountsInLocalStorage = localStorage.getItem("account");
+        const accountsInLocalStorage = localStorage.getItem("accounts");
         const accountsArray = JSON.parse(accountsInLocalStorage);
 
         const doesAccountExist = accountsArray.some(account => account.email === accountData.email);
 
         if(!doesAccountExist){
             accountsArray.push(accountData);
-            localStorage.setItem("account", JSON.stringify(accountsArray));
+            localStorage.setItem("accounts", JSON.stringify(accountsArray));
             setAccounts(accountsArray);
             
             return "show-success";
         }
 
         return "show-error-signup";
+    }
+
+    const updateLoggedUser = (userInfo) => {
+        localStorage.setItem('loggedUser', JSON.stringify(userInfo));
+
+        setLoggedInUser(userInfo)
     }
 
 
@@ -169,7 +186,7 @@ const ShopiProvider = ({ children }) => {
             signOut,
             setSignOut,
             loggedInUser, 
-            setLoggedInUser
+            updateLoggedUser
         }}>
             {children}
         </ShopiContext.Provider>

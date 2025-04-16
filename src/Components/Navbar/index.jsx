@@ -55,7 +55,7 @@ const NavBar = () => {
             return(
                 <>
                     <li className="text-black/60">
-                        {loggedInUser.email}
+                        {loggedInUser?.email}
                     </li>
                     <li>
                         <NavLink 
