@@ -12,12 +12,31 @@ function MyAccount() {
 
   const {
     loggedInUser,
+    updateAccount,
+    renderPopUpMessage
   } = useContext(ShopiContext);
 
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [popUpMessage, setPopUpMessage] = useState('');
 
   const editForm = useRef(null);
+
+  const handleEdit = () => {
+      const formData = new FormData(editForm.current)
+
+      const newUserData = {
+        name: formData.get("name"),
+        email: formData.get("email").toLowerCase(),
+        password: formData.get("password")
+      }
+
+      if(!newUserData.name || !newUserData.email || !newUserData.password){
+        setPopUpMessage('missing-info')
+      } else {
+        setPopUpMessage(updateAccount(newUserData));
+      }
+  }
 
   const deleteModal = (
     <div className="grid place-content-center absolute top-0 left-0 right-0 bottom-0 bg-slate-400/50">
@@ -27,7 +46,7 @@ function MyAccount() {
           <button 
             className="w-60 px-2 py-1 border-black border-2 rounded hover:border-orange-500 hover:text-orange-500"
             onClick={() => {
-
+              
             }}
           >
             Yes
@@ -98,6 +117,7 @@ function MyAccount() {
                 className="absolute size-8 top-3 left-1 cursor-pointer hover:text-orange-500" 
                 onClick={() => {
                   setIsEditing(false);
+                  setPopUpMessage('');
                 }}
               />
               <div className="py-4">
@@ -132,12 +152,14 @@ function MyAccount() {
                 <button 
                   type="button" 
                   className="w-60 px-2 py-1 mb-1 mx-auto text-white bg-black border-2 border-transparent rounded hover:bg-orange-500"
-                  onClick={() => {}}
+                  onClick={() => {
+                    handleEdit();
+                  }}
                 >
                   Save your changes
                 </button>
               </form>
-              
+              {renderPopUpMessage(popUpMessage)}
             </div>
         </div>
       )

@@ -144,7 +144,7 @@ const ShopiProvider = ({ children }) => {
             localStorage.setItem("accounts", JSON.stringify(accountsArray));
             setAccounts(accountsArray);
             
-            return "show-success";
+            return "show-success-signup";
         }
 
         return "show-error-signup";
@@ -155,6 +155,64 @@ const ShopiProvider = ({ children }) => {
 
         setLoggedInUser(userInfo)
     }
+
+    const updateAccount = (newUserInfo) => {
+        const accountsInLocalStorage = localStorage.getItem("accounts");
+        const accountsArray = JSON.parse(accountsInLocalStorage);
+
+        const indexUserAccount = accountsArray.findIndex(account => account.email === loggedInUser.email);
+
+        if(indexUserAccount){
+            accountsArray.splice(indexUserAccount, 1, newUserInfo);
+            localStorage.setItem("accounts", JSON.stringify(accountsArray));
+            setAccounts(accountsArray);
+            updateLoggedUser(newUserInfo);
+
+            return "show-success-editing";
+        }
+
+        return "show-error-editing";
+    }
+
+    const renderPopUpMessage = (popUpMessage) => {
+        if(popUpMessage === "show-success-signup"){
+          return(
+            <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-green-400 rounded-lg opacity-75">
+              <p>Congratulations! You can now log in.</p>
+            </div>
+          )
+        } else if(popUpMessage === "show-error-signup") {
+          return(
+            <div className="absolute -top-28 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-red-400 rounded-lg opacity-75">
+              <p>Sorry, an account with that email already exists</p>
+            </div>
+          )
+        } else if(popUpMessage === "show-error-signin") {
+          return(
+            <div className="absolute -top-28 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-red-400 rounded-lg opacity-75">
+              <p>Sorry, it seems that the email or password is wrong, try again.</p>
+            </div>
+          )
+        } else if(popUpMessage === "show-success-editing"){
+          return(
+            <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-green-400 rounded-lg opacity-75">
+              <p>Congratulations! You information has been updated.</p>
+            </div>
+          )
+        } else if(popUpMessage === "show-error-editing") {
+          return(
+            <div className="absolute -top-28 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-red-400 rounded-lg opacity-75">
+              <p>Sorry, we couldn't update your account</p>
+            </div>
+          )
+        } else if (popUpMessage === "missing-info"){
+          return(
+            <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-orange-400 rounded-lg opacity-75">
+              <p>Please fill all information out</p>
+            </div>
+          )
+        }
+      }
 
 
     return(
@@ -186,7 +244,9 @@ const ShopiProvider = ({ children }) => {
             signOut,
             setSignOut,
             loggedInUser, 
-            updateLoggedUser
+            updateLoggedUser,
+            updateAccount,
+            renderPopUpMessage
         }}>
             {children}
         </ShopiContext.Provider>

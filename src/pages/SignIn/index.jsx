@@ -15,7 +15,8 @@ function SingIn() {
       accounts,
       addNewAccount,
       setSignOut,
-      updateLoggedUser
+      updateLoggedUser,
+      renderPopUpMessage
     } = useContext(ShopiContext);
 
     const [isSignUp, setIsSignUp] = useState(false);
@@ -74,34 +75,6 @@ function SingIn() {
       }
     }
 
-    const renderPopUpMessage = () => {
-      if(popUpMessage === "show-success"){
-        return(
-          <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-green-400 rounded-lg opacity-75">
-            <p>Congratulations! You can now log in.</p>
-          </div>
-        )
-      } else if(popUpMessage === "show-error-signup") {
-        return(
-          <div className="absolute -top-28 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-red-400 rounded-lg opacity-75">
-            <p>Sorry, an account with that email already exists</p>
-          </div>
-        )
-      } else if(popUpMessage === "show-error-signin") {
-        return(
-          <div className="absolute -top-28 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-red-400 rounded-lg opacity-75">
-            <p>Sorry, it seems that the email or password is wrong, try again.</p>
-          </div>
-        )
-      } else if (popUpMessage === "missing-info"){
-        return(
-          <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-orange-400 rounded-lg opacity-75">
-            <p>Please fill all information out</p>
-          </div>
-        )
-      }
-    }
-
     const renderView = () => {
       if(!isSignUp){
         return(
@@ -156,7 +129,7 @@ function SingIn() {
                 </button>
               </div>
             </form>
-            {renderPopUpMessage()}
+            {renderPopUpMessage(popUpMessage)}
           </div>
         )
       } else {
@@ -206,7 +179,7 @@ function SingIn() {
                   Sign Up
                 </button>
               </form>
-              {renderPopUpMessage()}
+              {renderPopUpMessage(popUpMessage)}
             </div>
         )
       }
