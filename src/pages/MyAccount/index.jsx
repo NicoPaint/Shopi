@@ -1,6 +1,7 @@
 //Este componente es la página para mostrar la información de la cuenta de los usuarios
 //React
 import { useContext, useState, useRef } from "react"
+import { useNavigate } from "react-router-dom";
 //Components
 import { Layout } from "../../Components/Layout"
 //Context
@@ -13,7 +14,9 @@ function MyAccount() {
   const {
     loggedInUser,
     updateAccount,
-    renderPopUpMessage
+    renderPopUpMessage,
+    deleteAccount,
+    setSignOut
   } = useContext(ShopiContext);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -21,6 +24,8 @@ function MyAccount() {
   const [popUpMessage, setPopUpMessage] = useState('');
 
   const editForm = useRef(null);
+
+  let navigate = useNavigate();
 
   const handleEdit = () => {
       const formData = new FormData(editForm.current)
@@ -40,13 +45,20 @@ function MyAccount() {
 
   const deleteModal = (
     <div className="grid place-content-center absolute top-0 left-0 right-0 bottom-0 bg-slate-400/50">
-      <div className="p-10 bg-white shadow-xl rounded border border-gray-500">
+      <div className="relative p-10 bg-white shadow-xl rounded border border-gray-500">
         <span className="font-bold">Are you sure you want to delete your account?</span>
         <div className="flex flex-col justify-center items-center gap-3 pt-5">
           <button 
             className="w-60 px-2 py-1 border-black border-2 rounded hover:border-orange-500 hover:text-orange-500"
             onClick={() => {
-              
+              setPopUpMessage(deleteAccount());
+              setTimeout(() => {
+                localStorage.setItem("sign-out", JSON.stringify(true));
+                
+                setSignOut(true);
+
+                navigate("/sign-in");
+              }, 3000);
             }}
           >
             Yes
@@ -58,6 +70,7 @@ function MyAccount() {
             No
           </button>
         </div>
+        {renderPopUpMessage(popUpMessage)}
       </div>
     </div>
   )

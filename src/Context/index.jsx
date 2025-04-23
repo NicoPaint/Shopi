@@ -162,7 +162,7 @@ const ShopiProvider = ({ children }) => {
 
         const indexUserAccount = accountsArray.findIndex(account => account.email === loggedInUser.email);
 
-        if(indexUserAccount){
+        if(indexUserAccount >= 0){
             accountsArray.splice(indexUserAccount, 1, newUserInfo);
             localStorage.setItem("accounts", JSON.stringify(accountsArray));
             setAccounts(accountsArray);
@@ -172,6 +172,24 @@ const ShopiProvider = ({ children }) => {
         }
 
         return "show-error-editing";
+    }
+
+    const deleteAccount = () => {
+        const accountsInLocalStorage = localStorage.getItem("accounts");
+        const accountsArray = JSON.parse(accountsInLocalStorage);
+
+        const indexUserAccount = accountsArray.findIndex(account => account.email === loggedInUser.email);
+
+        if(indexUserAccount >= 0){
+            accountsArray.splice(indexUserAccount, 1);
+            localStorage.setItem("accounts", JSON.stringify(accountsArray));
+            setAccounts(accountsArray);
+            updateLoggedUser({});
+
+            return "show-success-deleting";
+        }
+
+        return "show-error-deleting";
     }
 
     const renderPopUpMessage = (popUpMessage) => {
@@ -196,7 +214,7 @@ const ShopiProvider = ({ children }) => {
         } else if(popUpMessage === "show-success-editing"){
           return(
             <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-green-400 rounded-lg opacity-75">
-              <p>Congratulations! You information has been updated.</p>
+              <p>Congratulations! Your information has been updated.</p>
             </div>
           )
         } else if(popUpMessage === "show-error-editing") {
@@ -205,12 +223,24 @@ const ShopiProvider = ({ children }) => {
               <p>Sorry, we couldn't update your account</p>
             </div>
           )
-        } else if (popUpMessage === "missing-info"){
+        } else if(popUpMessage === "show-success-deleting"){
+            return(
+              <div className="flex items-center justify-center absolute top-0 left-0 right-0 bottom-0 text-center font-bold text-white text-lg bg-green-400 rounded">
+                <p>Your account has been deleted.</p>
+              </div>
+            )
+        } else if(popUpMessage === "show-error-deleting") {
+            return(
+              <div className="absolute -top-28 left-0 right-0 px-10 py-5 text-center font-bold text-white text-lg bg-red-400 rounded-lg opacity-75">
+                <p>Sorry, we couldn't delete your account</p>
+              </div>
+            )
+        }else if (popUpMessage === "missing-info"){
           return(
-            <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-orange-400 rounded-lg opacity-75">
-              <p>Please fill all information out</p>
-            </div>
-          )
+              <div className="absolute -top-24 left-0 w-[400px] px-10 py-5 text-center font-bold text-white text-lg bg-orange-400 rounded-lg opacity-75">
+                <p>Please fill all information out</p>
+              </div>
+           )
         }
       }
 
@@ -246,7 +276,8 @@ const ShopiProvider = ({ children }) => {
             loggedInUser, 
             updateLoggedUser,
             updateAccount,
-            renderPopUpMessage
+            renderPopUpMessage,
+            deleteAccount
         }}>
             {children}
         </ShopiContext.Provider>
