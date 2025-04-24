@@ -20,7 +20,8 @@ const NavBar = () => {
         signOut,
         setSignOut,
         loggedInUser,
-        setLoggedInUser
+        updateLoggedUser,
+        setOrders
     } = useContext(ShopiContext);
 
     const toggleShoppingBag = () => {
@@ -34,7 +35,8 @@ const NavBar = () => {
 
     const handleSignOut = () => {
         localStorage.setItem("sign-out", JSON.stringify(true));  //Cambia el valor el LS de sign-out
-        setLoggedInUser({});
+        updateLoggedUser({});
+        setOrders([]);
         setSignOut(true);  //Cambia el valor en el estado signOut
     }
 

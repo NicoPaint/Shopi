@@ -83,6 +83,9 @@ const ShopiProvider = ({ children }) => {
             } else {
                 parsedUser = JSON.parse(loggedUserInLocalStorage);
                 setLoggedInUser(parsedUser);
+                if(parsedUser.orders){
+                    setOrders(parsedUser.orders);
+                }
             }
 
             if(!signOutInLocalStorage){
@@ -140,7 +143,7 @@ const ShopiProvider = ({ children }) => {
         const doesAccountExist = accountsArray.some(account => account.email === accountData.email);
 
         if(!doesAccountExist){
-            accountsArray.push(accountData);
+            accountsArray.push({...accountData, orders: orders});
             localStorage.setItem("accounts", JSON.stringify(accountsArray));
             setAccounts(accountsArray);
             
@@ -163,10 +166,10 @@ const ShopiProvider = ({ children }) => {
         const indexUserAccount = accountsArray.findIndex(account => account.email === loggedInUser.email);
 
         if(indexUserAccount >= 0){
-            accountsArray.splice(indexUserAccount, 1, newUserInfo);
+            accountsArray.splice(indexUserAccount, 1, {...newUserInfo, orders: orders});
             localStorage.setItem("accounts", JSON.stringify(accountsArray));
             setAccounts(accountsArray);
-            updateLoggedUser(newUserInfo);
+            updateLoggedUser({...newUserInfo, orders: orders});
 
             return "show-success-editing";
         }
@@ -190,6 +193,26 @@ const ShopiProvider = ({ children }) => {
         }
 
         return "show-error-deleting";
+    }
+
+   const updateOrders = (orderToAdd) => {
+        setOrders([...orders, orderToAdd]);
+
+        const accountsInLocalStorage = localStorage.getItem("accounts");
+        const accountsArray = JSON.parse(accountsInLocalStorage);
+
+        const newAccountsArray = accountsArray.map(account => {
+           if(account.email === loggedInUser.email){
+                updateLoggedUser({...account, orders: [...orders, orderToAdd]});
+
+                return {...account, orders: [...orders, orderToAdd]};
+            }
+
+            return account;
+        });
+
+        localStorage.setItem("accounts", JSON.stringify(newAccountsArray));
+        setAccounts(newAccountsArray);
     }
 
     const renderPopUpMessage = (popUpMessage) => {
@@ -277,7 +300,8 @@ const ShopiProvider = ({ children }) => {
             updateLoggedUser,
             updateAccount,
             renderPopUpMessage,
-            deleteAccount
+            deleteAccount,
+            updateOrders
         }}>
             {children}
         </ShopiContext.Provider>

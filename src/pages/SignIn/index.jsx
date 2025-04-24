@@ -16,7 +16,8 @@ function SingIn() {
       addNewAccount,
       setSignOut,
       updateLoggedUser,
-      renderPopUpMessage
+      renderPopUpMessage,
+      setOrders
     } = useContext(ShopiContext);
 
     const [isSignUp, setIsSignUp] = useState(false);
@@ -42,6 +43,7 @@ function SingIn() {
           
           if(user.email === userData.email && user.password === userData.password){
             updateLoggedUser(user);
+            setOrders(user.orders);
           }
 
           return user.email === userData.email && user.password === userData.password

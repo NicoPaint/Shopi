@@ -20,9 +20,8 @@ const CheckoutSideMenu = () => {
         setCount,
         cartProducts,
         setCartProducts,
-        orders,
-        setOrders,
-        setSearchByTitle
+        setSearchByTitle,
+        updateOrders
     } = useContext(ShopiContext);
 
     const handelDelete = (id) => {
@@ -53,7 +52,7 @@ const CheckoutSideMenu = () => {
             totalPrice: +totalPrice(cartProducts), //se agregó el signo + a finalPrice para convertirlo de string a número porque en la copia ese dato se convirtió en string.
         }
 
-        setOrders([...orders, orderToAdd]);
+        updateOrders(orderToAdd);
         emptyTheBag();  //por alguna razón cuando le aplico el Link al boton y se oprime, este borra el cartProduct pero vuelve y agrega el ultimo producto que estaba en el array y no lo borra del checkoutSideMenu. Solo aplicandole este timeout puedo evitar que eso suceda.
         //Ya encontré el problema. Era el useEffect que estaba usando en el componente OrderCard, ya que este renderizaba la primera vez y luego ejecutaba el useEffect y volvia a renderizar el componente. Esto lo hacia muchas veces y terminaba trayendo ese ultimo producto.
         setSearchByTitle('');  //Elimina lo que haya escrito el usuario en el search bar

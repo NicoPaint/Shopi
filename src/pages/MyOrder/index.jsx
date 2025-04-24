@@ -31,7 +31,7 @@ function MyOrder() {
       </div>
       <div className="flex flex-col w-80">
           {/* Aca se inserta el order card al check side menu cada vez que el usuario agrega un producto al bag con el boton de mas */}
-          {orders?.[index - 1]?.products.map(product => (
+          {orders?.[index - 1]?.products?.map(product => (
               <OrderCard
                   key={product.productData.id}
                   productData={product.productData}
@@ -41,7 +41,7 @@ function MyOrder() {
       </div>
       <p className="flex items-center gap-1 mb-16">
           <span className="font-light">Total:</span>
-          <span className="font-medium text-xl">${orders[index - 1]?.totalPrice.toFixed(2)}</span>
+          <span className="font-medium text-xl">${orders[index - 1]?.totalPrice?.toFixed(2)}</span>
       </p>
     </Layout>
   )
