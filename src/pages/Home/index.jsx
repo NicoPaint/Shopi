@@ -18,7 +18,7 @@ function Home() {
   const renderView = () => {
     if(filteredProducts?.length > 0){
       return(
-        <div className="grid grid-cols-4 place-items-center w-full max-w-screen-lg gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 place-items-center w-full max-w-screen-lg gap-4 p-1">
           {filteredProducts?.map(product => (
             <Card key={product.id} data={product}/>
           ))}
@@ -44,7 +44,7 @@ function Home() {
         <input 
           type="text"
           placeholder="Search them all..."
-          className="w-96 p-3 mb-8 rounded-lg border border-black focus:outline-none"
+          className="w-72 min-[450px]:w-96 p-3 mb-8 rounded-lg border border-black focus:outline-none"
           onChange={(event) => setSearchByTitle(event.target.value)}
         />
       </form>

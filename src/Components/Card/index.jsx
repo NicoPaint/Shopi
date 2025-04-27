@@ -80,7 +80,7 @@ const Card = ({ data }) => {
 
     return(
         <div 
-            className="w-56 h-60 bg-white cursor-pointer rounded-lg"
+            className="w-36 h-44 min-[500px]:w-56 min-[500px]:h-60 bg-white cursor-pointer rounded-lg"
             onClick={() => showProduct(data)}
         >
             <figure className="relative w-full h-4/5 mb-2">
