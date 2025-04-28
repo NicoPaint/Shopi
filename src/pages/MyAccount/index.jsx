@@ -79,7 +79,7 @@ function MyAccount() {
     if(!isEditing){
       return(
         <div className="grid place-content-center w-80 h-[calc(100vh-68px)]">
-          <div className="px-10 py-5 shadow-xl rounded">
+          <div className="flex flex-col px-5 py-4 min-[375px]:px-10 min-[375px]:py-5 shadow-xl rounded border border-black">
             <div className="py-4">
               <h1 className="text-2xl font-bold text-center">My Account</h1>
             </div>
@@ -104,9 +104,9 @@ function MyAccount() {
                 Edit your account
               </button>
               <div className="flex items-center gap-2">
-                <hr className="w-32"/>
+                <hr className="w-24 min-[425px]:w-32"/>
                 <span>or</span>
-                <hr className="w-32"/>
+                <hr className="w-24 min-[425px]:w-32"/>
               </div>
               <button 
                 type="button" 
@@ -125,9 +125,9 @@ function MyAccount() {
     } else {
       return(
         <div className="grid place-content-center w-80 h-[calc(100vh-68px)]">
-          <div className="px-10 py-5 relative shadow-xl rounded">
+          <div className="px-5 py-4 min-[375px]:px-10 min-[375px]:py-5 relative shadow-xl rounded border border-black">
               <ChevronLeftIcon 
-                className="absolute size-8 top-3 left-1 cursor-pointer hover:text-orange-500" 
+                className="absolute size-8 top-[7px] left-0 sm:top-3 sm:left-1 cursor-pointer hover:text-orange-500" 
                 onClick={() => {
                   setIsEditing(false);
                   setPopUpMessage('');
@@ -143,7 +143,7 @@ function MyAccount() {
                   type="text"
                   id="name"
                   name="name"
-                  className="w-80 px-2 py-1 mb-2 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
+                  className="w-60 min-[425px]:w-80 px-2 py-1 mb-2 mx-auto border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
                   placeholder="Name"
                 />
                 <label htmlFor="email" className="font-bold text-sm">New email:</label>
@@ -151,7 +151,7 @@ function MyAccount() {
                   type="email"
                   id="email"
                   name="email"
-                  className="w-80 px-2 py-1 mb-2 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
+                  className="w-60 min-[425px]:w-80 px-2 py-1 mb-2 mx-auto border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
                   placeholder="Email"
                 />
                 <label htmlFor="password" className="font-bold text-sm">New password:</label>
@@ -159,7 +159,7 @@ function MyAccount() {
                   type="password"
                   id="password"
                   name="password"
-                  className="w-80 px-2 py-1 mb-8 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
+                  className="w-60 min-[425px]:w-80 px-2 py-1 mb-8 mx-auto border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
                   placeholder="Password"
                 />
                 <button 
