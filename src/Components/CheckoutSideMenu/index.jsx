@@ -65,7 +65,7 @@ const CheckoutSideMenu = () => {
     }
 
     return(
-        <aside className={`${isCheckoutSideMenuOpen ? "flex" : "hidden"} flex-col fixed top-[68px] right-0 w-[360px] h-[calc(100vh-68px)] border border-r-0 border-black rounded-l-lg bg-white`}>
+        <aside className={`${isCheckoutSideMenuOpen ? "flex" : "hidden"} flex-col fixed top-[68px] right-0 w-72 sm:w-[360px] h-[calc(100vh-68px)] border border-r-0 border-b-0 border-black rounded-l-lg rounded-b-none bg-white`}>
             <div className="flex justify-between items-center p-6">
                 <h2 className="font-medium text-xl">My Order</h2>
                 <div>
@@ -90,14 +90,14 @@ const CheckoutSideMenu = () => {
             <div className="flex flex-col justify-between items-center px-6 py-3 gap-2">
                 <div className="flex justify-between items-center w-full">
                     <button 
-                        className="px-2 py-1 text-red-600 rounded-lg border-[1px] border-red-400 transition hover:bg-red-600 hover:text-white hover:border-transparent "
+                        className="px-2 py-1 text-xs sm:text-base text-red-600 rounded-lg border-[1px] border-red-400 transition hover:bg-red-600 hover:text-white hover:border-transparent "
                         onClick={() => emptyTheBag()}
                     >
                         Empty the bag
                     </button>
                     <p className="flex items-center gap-1">
                         <span className="font-light">Total:</span>
-                        <span className="font-medium text-xl">${totalPrice(cartProducts)}</span>
+                        <span className="font-medium sm:text-xl">${totalPrice(cartProducts)}</span>
                     </p>
                 </div>
                 <Link to="/my-orders/last" className="w-full">

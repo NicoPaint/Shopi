@@ -62,7 +62,7 @@ const OrderCard = ({ productData, finalPrice, handelDelete, handelQuantity }) =>
 
     return(
         <div className="flex justify-between items-center mb-3">
-            <div className="flex items-center w-4/6 gap-2">
+            <div className="flex items-center w-3/6 sm:w-7/12 gap-2">
                 <figure className="w-1/4 h-20">
                     <img className="w-full h-full object-contain rounded-lg" src={productData.image} alt={productData.title} />
                 </figure>
@@ -71,8 +71,8 @@ const OrderCard = ({ productData, finalPrice, handelDelete, handelQuantity }) =>
                     {renderQuantity}
                 </div>
             </div>
-            <div className="flex items-center justify-end w-2/6 gap-2">
-                <p className="text-lg font-semibold">${finalPrice}</p>
+            <div className="flex items-center justify-end w-3/6 sm:w-5/12 gap-2">
+                <p className="sm:text-lg font-semibold">${finalPrice}</p>
                 {renderXMarkIcon}
             </div>
         </div>
