@@ -127,7 +127,7 @@ function MyAccount() {
         <div className="grid place-content-center w-80 h-[calc(100vh-68px)]">
           <div className="px-5 py-4 min-[375px]:px-10 min-[375px]:py-5 relative shadow-xl rounded border border-black">
               <ChevronLeftIcon 
-                className="absolute size-8 top-[7px] left-0 sm:top-3 sm:left-1 cursor-pointer hover:text-orange-500" 
+                className="absolute size-6 sm:size-8 top-3 left-1 cursor-pointer hover:text-orange-500" 
                 onClick={() => {
                   setIsEditing(false);
                   setPopUpMessage('');

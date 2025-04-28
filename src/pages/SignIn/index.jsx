@@ -80,7 +80,7 @@ function SingIn() {
     const renderView = () => {
       if(!isSignUp){
         return(
-          <div className="px-10 py-5 relative shadow-xl rounded">
+          <div className="px-5 py-4 min-[375px]:px-10 min-[375px]:py-5 relative shadow-xl rounded border border-black">
             <div className="py-4">
               <h1 className="text-2xl font-bold">Sign In</h1>
               <p className="text-sm">Good to see you again</p>
@@ -90,14 +90,14 @@ function SingIn() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-80 px-2 py-1 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500" 
+                className="w-60 min-[425px]:w-80 px-2 py-1 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500" 
                 placeholder="Email"
               />
               <input 
                 type="password"
                 id="password" 
                 name="password"
-                className="w-80 px-2 py-1 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500" 
+                className="w-60 min-[425px]:w-80 px-2 py-1 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500" 
                 placeholder="Password"
               />
               <a href="">
@@ -115,9 +115,9 @@ function SingIn() {
                     Sign In
                   </button>
                 <div className="flex items-center gap-2">
-                  <hr className="w-32"/>
+                  <hr className="w-24 min-[425px]:w-32"/>
                   <span>or</span>
-                  <hr className="w-32"/>
+                  <hr className="w-24 min-[425px]:w-32"/>
                 </div>
                 <button 
                   type="button" 
@@ -136,9 +136,9 @@ function SingIn() {
         )
       } else {
         return(
-          <div className="px-10 py-5 relative shadow-xl rounded">
+          <div className="px-5 py-4 min-[375px]:px-10 min-[375px]:py-5 relative shadow-xl rounded border border-black">
               <ChevronLeftIcon 
-                className="absolute size-8 top-3 left-1 cursor-pointer hover:text-orange-500" 
+                className="absolute size-6 sm:size-8 top-3 left-1 cursor-pointer hover:text-orange-500" 
                 onClick={() => {
                   setIsSignUp(false);
                   setPopUpMessage('');
@@ -154,7 +154,7 @@ function SingIn() {
                   type="text"
                   id="name"
                   name="name"
-                  className="w-80 px-2 py-1 mb-2 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
+                  className="w-60 min-[425px]:w-80 px-2 py-1 mb-2 mx-auto border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
                   placeholder="Name"
                 />
                 <label htmlFor="email" className="font-bold text-sm">Your email:</label>
@@ -162,7 +162,7 @@ function SingIn() {
                   type="email"
                   id="email"
                   name="email"
-                  className="w-80 px-2 py-1 mb-2 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
+                  className="w-60 min-[425px]:w-80 px-2 py-1 mb-2 mx-auto border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
                   placeholder="Email"
                 />
                 <label htmlFor="password" className="font-bold text-sm">Your password:</label>
@@ -170,7 +170,7 @@ function SingIn() {
                   type="password"
                   id="password"
                   name="password"
-                  className="w-80 px-2 py-1 mb-8 border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
+                  className="w-60 min-[425px]:w-80 px-2 py-1 mb-8 mx-auto border-black border-[1px] rounded outline-orange-500 hover:border-orange-500"
                   placeholder="Password"
                 />
                 <button 

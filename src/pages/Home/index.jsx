@@ -27,7 +27,7 @@ function Home() {
     } else {
       return(
         <div className="grid place-items-center w-full max-w-screen-lg gap-4">
-          <p className="text-2xl">
+          <p className="text-2xl text-center">
             Sorry, there are no results available for this search.
           </p>
         </div>
