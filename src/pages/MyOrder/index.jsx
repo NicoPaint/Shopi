@@ -23,13 +23,13 @@ function MyOrder() {
 
   return (
     <Layout>
-      <div className="flex justify-center items-center relative w-80 mb-4">
+      <div className="flex justify-center items-center relative w-72 min-[375px]:w-80 mb-4">
         <Link to={"/my-orders"} className="absolute left-0">
           <ChevronLeftIcon className="w-8 cursor-pointer"/>
         </Link>
         <h1>MyOrder</h1>
       </div>
-      <div className="flex flex-col w-80">
+      <div className="flex flex-col w-64 min-[375px]:w-80">
           {/* Aca se inserta el order card al check side menu cada vez que el usuario agrega un producto al bag con el boton de mas */}
           {orders?.[index - 1]?.products?.map(product => (
               <OrderCard

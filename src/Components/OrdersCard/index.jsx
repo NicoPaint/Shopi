@@ -12,7 +12,7 @@ const OrdersCard = ({date, totalPrice, totalProducts}) => {
                     <span className="font-light">{date}</span>
                     <span className="font-light">{totalProducts} Products</span>
                 </p>
-                <span className="font-bold text-2xl">${totalPrice}</span>
+                <span className="font-bold text-xl min-[375px]:text-2xl">${totalPrice}</span>
                 <ChevronRightIcon className="absolute right-0 w-8 cursor-pointer"/>
             </div>
         </div>
