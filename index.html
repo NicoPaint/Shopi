@@ -5,6 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/Shopi/shop.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopi</title>
+
+    <script type="text/javascript">
+      (/* Este código lo conseguí de internet. Se usa para configurar la redireccion de las páginas cuando se recarga el navegador */
+        
+      function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
     <script type="module" crossorigin src="/Shopi/assets/index-BGe62XaO.js"></script>
     <link rel="stylesheet" crossorigin href="/Shopi/assets/index-8_7VGdGF.css">
   </head>
